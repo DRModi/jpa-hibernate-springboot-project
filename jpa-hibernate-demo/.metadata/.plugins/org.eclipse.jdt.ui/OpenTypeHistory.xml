@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=jpa-hibernate-demo/C:\/Users\/Vinu Modi\/.m2\/repository\/net\/sf\/ehcache\/ehcache\/2.10.4\/ehcache-2.10.4.jar&lt;net.sf.ehcache.hibernate(EhCache.class[EhCache" modifiers="1048625" timestamp="1511243965275"/>
+<typeInfo handle="=jpa-hibernate-demo/C:\/Users\/Vinu Modi\/.m2\/repository\/org\/hibernate\/hibernate-ehcache\/5.2.11.Final\/hibernate-ehcache-5.2.11.Final.jar&lt;org.hibernate.cache.ehcache(EhCacheRegionFactory.class[EhCacheRegionFactory" modifiers="33" timestamp="1511243962501"/>
+<typeInfo handle="=jpa-hibernate-demo/C:\/Users\/Vinu Modi\/.m2\/repository\/org\/hibernate\/javax\/persistence\/hibernate-jpa-2.1-api\/1.0.0.Final\/hibernate-jpa-2.1-api-1.0.0.Final.jar&lt;javax.persistence(SharedCacheMode.class[SharedCacheMode" modifiers="16433" timestamp="1506666141037"/>
+</typeInfoHistroy>

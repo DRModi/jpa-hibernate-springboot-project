@@ -1,0 +1,13 @@
+1509914374762	Copy compilation unit
+1509928981913	Encapsulate field 'name'
+1509933650391	Copy compilation unit
+1509934084220	Extract local variable 'selectQuery'
+1509934151793	Extract local variable 'typedQuery'
+1509934394351	Extract local variable 'createQuery'
+1509938322948	Copy compilation unit
+1509938748760	Copy compilation unit
+1510034209119	Encapsulate field 'passport'
+1510036784395	Rename type 'StudentRepository'
+1510209036179	Encapsulate field 'student'
+1510434557273	Encapsulate field 'courses'
+1510434693537	Encapsulate field 'students'

@@ -1,0 +1,69 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.training.jpa.hibernate.jpahibernatedemo.JpaHibernateDemoApplication;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Address;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Passport;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Student;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = JpaHibernateDemoApplication.class)
+public class StudentRepositoryTest {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	StudentRepository studentRepository;
+
+	@Autowired
+	EntityManager em;
+
+	@Test
+	@Transactional
+	public void retriveStudentWithPassport() {
+		Student student = em.find(Student.class, 2001L);
+		Passport passport = student.getPassport();
+		logger.info("Student Details ==> {}", student);
+		logger.info("Student Name: " + student.getName()
+				+ " : Passport Details ==> {}", passport);
+		
+		assertEquals("Anand", student.getName());
+
+	}
+	
+	@Test
+	@Transactional
+	public void retrivePassportWithStudent(){
+		Passport passport = em.find(Passport.class, 3003L);
+		Student student = passport.getStudent();
+		logger.info("Passport Details ==> {}", passport);
+		logger.info("Passport Number: " + passport.getNumber()
+				+ " : Student Details ==> {}", student);
+		
+		assertEquals("Churchill", student.getName());
+	}
+	
+	@Test
+	@Transactional
+	public void insertStudentAndAddress(){
+		Student student = em.find(Student.class, 2003L);
+		student.setAddress(new Address("Kedarnath Society", "T.P. Road", "Mehsana"));
+		em.flush();
+	}
+	
+	
+
+}

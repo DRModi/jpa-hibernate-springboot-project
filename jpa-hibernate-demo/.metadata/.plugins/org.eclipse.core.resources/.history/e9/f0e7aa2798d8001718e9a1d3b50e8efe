@@ -1,0 +1,93 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.training.jpa.hibernate.jpahibernatedemo.JpaHibernateDemoApplication;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Course;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes=JpaHibernateDemoApplication.class)
+public class CourseTestSpringDataJpaRepository {
+
+	@Autowired
+	CourseSpringDataJPARepository courseRepository;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Test
+	public void course_isPresent() {
+		//Optional will avoid null pointer exception
+		Optional<Course> courseOptional = courseRepository.findById(1001L);
+		assertTrue(courseOptional.isPresent());
+		
+		logger.info("Check course is available from isPresent==> {}",courseOptional.isPresent());
+		
+	}
+	
+	@Test
+	public void course_isNotPresent() {
+		//Optional will avoid null pointer exception
+		Optional<Course> courseOptional = courseRepository.findById(2001L);
+		assertFalse(courseOptional.isPresent());
+		
+		logger.info("Check course is available from isNotPresent==> {}",courseOptional.isPresent());
+	}
+	
+	@Test
+	public void add_update_course(){
+		
+		Course course = new Course("Microservice in 100 steps");
+		courseRepository.save(course);
+		logger.info("Retrive all course after added new course ===> {} ",courseRepository.findAll());
+		
+		course.setName("Microservice in 100 steps with Netflix api");
+		courseRepository.save(course);
+		logger.info("Retrive all course after updated course ===> {} ",courseRepository.findAll());
+
+	
+		logger.info("****** Total courses count ===> {} ",courseRepository.count());
+	}
+	
+
+	@Test
+	public void findAll(){
+		List<Course> findAll = courseRepository.findAll();
+		logger.info("All Courses Using Find All ==> {}",findAll);
+		assertNotNull(findAll);
+	}
+	
+	@Test
+	public void sort(){
+		Sort sort = new Sort(Sort.Direction.DESC, "name");
+		List<Course> findAllUsingSortDESC = courseRepository.findAll(sort);
+		logger.info("All Courses Using Sort - DESC ==> {}", findAllUsingSortDESC);
+		
+		Sort sortASC = new Sort(Sort.Direction.ASC, "name");
+		List<Course> findAllUsingSortASC = courseRepository.findAll(sortASC);
+		logger.info("All Courses Using Sort - DESC ==> {}", findAllUsingSortASC);
+		
+		Sort sortBYASCId = new Sort(Sort.Direction.ASC, "id");
+		Sort sortASCandID = new Sort(Sort.Direction.ASC, "name").and(sortBYASCId);
+		List<Course> findAllUsingSortASCandID = courseRepository.findAll(sortASCandID);
+		logger.info("All Courses Using Sort and ID - ASC ==> {}", findAllUsingSortASCandID);
+	}
+	
+	@Test
+	public void Pagination(){
+		
+	}
+
+}

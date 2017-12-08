@@ -1,0 +1,5 @@
+package com.training.jpa.hibernate.jpahibernatedemo.entity;
+
+public class Address {
+
+}

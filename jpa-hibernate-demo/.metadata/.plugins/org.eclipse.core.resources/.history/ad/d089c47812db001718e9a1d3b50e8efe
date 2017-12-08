@@ -1,0 +1,14 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class Nplus1ProblemWithSolution {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

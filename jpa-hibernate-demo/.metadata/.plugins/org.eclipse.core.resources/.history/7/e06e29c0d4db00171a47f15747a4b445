@@ -1,0 +1,99 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Course;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Review;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.ReviewRating;
+
+@Repository
+@Transactional
+public class CourseRepository {
+
+	@Autowired
+	EntityManager entityManager;
+
+	// Find
+	public Course findById(long id) {
+		return entityManager.find(Course.class, id);
+	}
+
+	// Insert and Update together as it is update to db
+	public Course save(Course course) {
+
+		if (course.getId() == null) {
+			entityManager.persist(course);
+		} else {
+			entityManager.merge(course);
+		}
+		return course;
+	}
+
+	// Delete Method
+	public void deleteById(long id) {
+		Course course = findById(id);
+		entityManager.remove(course);
+	}
+
+	public void entityManagerMethodsTesting() {
+
+		Course course1 = new Course("Learning WebService in 100 Steps");
+		entityManager.persist(course1);
+
+		Course course2 = new Course("Learning JavaScript in 100 Steps");
+		entityManager.persist(course2);
+
+		entityManager.flush();
+
+		course1.setName("Learning WebService in 100 Steps - Updated");
+		course2.setName("Learning JavaScript in 100 Steps - Updated");
+
+		entityManager.refresh(course1);
+
+		entityManager.flush();
+
+	}
+
+	public void addReviewsToCourse_HardCoded() {
+
+		Course course = entityManager.find(Course.class, 1003L);
+		List<Review> reviews = course.getReviews();
+
+		Review review1 = new Review(ReviewRating.FIVE, "Good HandsOn course");
+		Review review2 = new Review(ReviewRating.FOUR, "HatsOff Course");
+
+		// Adding review to the list of the review of the course
+		// As Review entity owning the relationship, so course/course_Id need to
+		// be added to review
+		course.addReview(review1);
+		review1.setCourse(course);
+
+		course.addReview(review2);
+		review2.setCourse(course);
+
+		entityManager.persist(review1);
+		entityManager.persist(review2);
+
+	}
+	
+	public void addReviewsToCourse(Long courseID, List<Review> reviews){
+		
+		Course course = entityManager.find(Course.class, courseID);
+		//reviews = course.getReviews();
+		
+		for (Review review : reviews) {
+			course.addReview(review);
+			review.setCourse(course);
+			entityManager.persist(review);
+		}
+		
+	}
+
+}

@@ -1,0 +1,46 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import com.training.jpa.hibernate.jpahibernatedemo.JpaHibernateDemoApplication;
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Course;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = JpaHibernateDemoApplication.class)
+public class Nplus1ProblemWithSolution {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	EntityManager em;
+
+
+	//Below method will create the problem.. 
+	//If you see in logs you will find that it will run for queries to get the result
+	//One for retrieving all the courses (which are 3 in this case)
+	//Then three more queries to retrieving students for each course
+	@Test
+	@Transactional
+	public void NplusOne_problem() {
+		List<Course> courses = em.createNamedQuery("query_get_all_courses", Course.class).getResultList();
+		for (Course course : courses) {
+			logger.info("Course {} and associated Students {}", course, course.getStudents());
+		}
+	}
+
+	
+	
+}

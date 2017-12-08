@@ -1,0 +1,28 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.training.jpa.hibernate.jpahibernatedemo.entity.Course;
+
+
+public interface CourseSpringDataJPARepository extends JpaRepository<Course, Long> {
+	
+	List<Course> findByName(String name);
+	
+	Course findByNameAndId(String name, Long id);
+	
+	int countByName(String name);
+	
+	List<Course> findByNameOrderByIdDesc(String name);
+	
+	List<Course> deleteByName(String name);
+	
+	//JPQL
+	@Query("Select c from Course c where name like '%100 steps'")
+	List<Course> courseWith100StepsJPQL();
+	
+
+}

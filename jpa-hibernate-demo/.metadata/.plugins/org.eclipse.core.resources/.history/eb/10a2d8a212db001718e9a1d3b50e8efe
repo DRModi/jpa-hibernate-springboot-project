@@ -1,0 +1,17 @@
+package com.training.jpa.hibernate.jpahibernatedemo.repository;
+
+import static org.junit.Assert.*;
+
+import javax.transaction.Transactional;
+
+import org.junit.Test;
+
+public class Nplus1ProblemWithSolution {
+
+	@Test
+	@Transactional
+	public void NplusOne_problem() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -1,0 +1,38 @@
+# Enabling H2 console
+spring.h2.console.enabled=true
+
+#Turn on Hibernate Statistics
+spring.jpa.properties.hibernate.generate_statistics=true
+logging.level.org.hibernate.state=debug
+
+#Show all queries
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+#Warning - do not enable hibernate format sql 
+
+logging.level.org.hibernate.type=trace
+
+
+#---- Configuring Second Level Cache - EhCache ----------------
+
+# 1. Enable Second Level Cache
+# 2. Specify the caching framework - EhCache
+# 3. Only Cache what I tell to cache.
+# 4. What data to cache?
+
+# 1. Enable Second Level Cache
+spring.jpa.properties.hibernate.cache.use_second_level_cache=true
+
+# 2. Specify the caching framework - EhCache
+spring.jpa.properties.hibernate.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+
+# 3. Only Cache what I tell to cache.- JPA property
+spring.jpa.properties.javax.persistence.sharedCache.mode=ENABLE_SELECTIVE
+
+# 4. What data to cache?
+# Define @Cacheable at Entity class
+
+#Logging Level for specific ehcahe package class to debug
+logging.level.net.sf.ehcache=debug
+
+
